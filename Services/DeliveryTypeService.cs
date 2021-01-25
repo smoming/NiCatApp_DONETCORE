@@ -45,8 +45,10 @@ namespace NiCatApp_DONETCORE.Services {
         }
 
         public void delete (string id) {
+            var p = new DynamicParameters ();
+            p.Add ("i_ID", id, DbType.String, ParameterDirection.Input);
             using (var res = new BaseRepository<DeliveryTypeDTO> (_conn)) {
-                res.doExecute (SP_DELETE, toSqlParams (get (id)));
+                res.doExecute (SP_DELETE, p);
             }
         }
 
