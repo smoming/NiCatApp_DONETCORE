@@ -48,8 +48,8 @@ namespace NiCatApp_DONETCORE.Controllers {
         }
 
         [HttpGet ("GetUnShipped")]
-        public IEnumerable<TradingDTO> unshipped () {
-            return svc.list_unshipped ();
+        public IEnumerable<TradingDTO> unshipped (string Buyer) {
+            return svc.list_unshipped (Buyer);
         }
     }
 }

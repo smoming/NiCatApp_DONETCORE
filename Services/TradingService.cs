@@ -58,9 +58,11 @@ namespace NiCatApp_DONETCORE.Services {
             }
         }
 
-        public IEnumerable<TradingDTO> list_unshipped () {
+        public IEnumerable<TradingDTO> list_unshipped (string Buyer) {
+            var p = new DynamicParameters ();
+            p.Add ("i_BUYER", Buyer, DbType.String, ParameterDirection.Input);
             using (var res = new BaseRepository<TradingDTO> (_conn)) {
-                return res.doQuery (SP_UNSHIPPED);
+                return res.doQuery (SP_UNSHIPPED, p);
             }
         }
 
