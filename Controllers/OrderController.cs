@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,14 @@ namespace NiCatApp_DONETCORE.Controllers {
                 TradeDate_S = StartDate,
                 TradeDate_E = EndDate,
                 CommodityID = CommodityID,
+                ReceiptNo = ReceiptNo
+            };
+            return svc.list (filter);
+        }
+
+        [HttpGet ("HavingReceipt")]
+        public IEnumerable<OrderDTO> havingReceipt (string ReceiptNo) {
+            var filter = new OrderQueryModel () {
                 ReceiptNo = ReceiptNo
             };
             return svc.list (filter);
