@@ -11,7 +11,10 @@ COPY ["NiCatApp_DONETCORE.csproj", ""]
 RUN dotnet restore "./NiCatApp_DONETCORE.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "NiCatApp_DONETCORE.csproj" -c Release -o /app/build
+
+ENV CONNECTIONSTRINGS__MYSQL="server=172.18.0.2;port=3306;database=NiCatBT;user id=root;password=chenni0427" 
+
+# RUN dotnet build "NiCatApp_DONETCORE.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "NiCatApp_DONETCORE.csproj" -c Release -o /app/publish

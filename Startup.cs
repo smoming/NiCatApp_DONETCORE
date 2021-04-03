@@ -22,15 +22,16 @@ namespace NiCatApp_DONETCORE {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
-            services.AddCors (options => {
-                // CorsPolicy 是自訂的 Policy 名稱
-                options.AddPolicy ("CorsPolicy", policy => {
-                    policy.WithOrigins ("http://localhost:4200")
-                        .AllowAnyHeader ()
-                        .AllowAnyMethod ()
-                        .AllowCredentials ();
-                });
-            });
+            // services.AddCors (options => {
+            //     // CorsPolicy 是自訂的 Policy 名稱
+            //     options.AddPolicy ("CorsPolicy", policy => {
+            //         policy
+            //             .AllowAnyMethod ()
+            //             .AllowAnyHeader ()
+            //             .SetIsOriginAllowed (origin => true)
+            //             .AllowCredentials ();
+            //     });
+            // });
             services.AddControllers ();
             services.AddSwaggerGen (c => {
                 c.SwaggerDoc ("v1", new OpenApiInfo { Title = "NiCatApp_DONETCORE", Version = "v1" });
@@ -50,7 +51,13 @@ namespace NiCatApp_DONETCORE {
 
             app.UseRouting ();
 
-            app.UseCors ("CorsPolicy");
+            // app.UseCors ("CorsPolicy");
+            // global cors policy
+            app.UseCors (x => x
+                .AllowAnyMethod ()
+                .AllowAnyHeader ()
+                .SetIsOriginAllowed (origin => true) // allow any origin
+                .AllowCredentials ()); // allow credentials
 
             app.UseAuthorization ();
 
