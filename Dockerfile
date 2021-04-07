@@ -22,4 +22,5 @@ RUN dotnet publish "NiCatApp_DONETCORE.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY ./appsettings_docker.json /app/appsettings.json
 ENTRYPOINT ["dotnet", "NiCatApp_DONETCORE.dll"]
